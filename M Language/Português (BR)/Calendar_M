@@ -1,5 +1,5 @@
 let
-    Calendar_M = let
+    CalendarioM = let
 
 StartDate = #date(2020,1,1),
 EndDate = #date(2025,12,31),
@@ -35,11 +35,17 @@ DayColumn
 
 //Formatação
 
-    #"Tipo Alterado" = Table.TransformColumnTypes(Calendar_M,{{"Data", type date}}),
+    #"Tipo Alterado" = Table.TransformColumnTypes(CalendarioM,{{"Data", type date}}),
     #"Colocar Cada Palavra Em Maiúscula" = Table.TransformColumns(#"Tipo Alterado",{{"Nome do Mês", Text.Proper, type text}}),
     #"Tipo Alterado1" = Table.TransformColumnTypes(#"Colocar Cada Palavra Em Maiúscula",{{"Ano", Int64.Type}, {"Trimestre", Int64.Type}, {"Mês", Int64.Type}, {"Semana", Int64.Type}, {"Dia", Int64.Type}, {"Nome da Semana", type text}, {"Nome do Trimestre", type text}}),
     #"Linhas Classificadas" = Table.Sort(#"Tipo Alterado1",{{"Data", Order.Ascending}}),
     #"Coluna Mesclada Inserida" = Table.AddColumn(#"Linhas Classificadas", "Nome do Ano/Mês", each Text.Combine({[Nome do Ano], "/", [Nome do Mês]}), type text),
-    #"Coluna Mesclada Inserida1" = Table.AddColumn(#"Coluna Mesclada Inserida", "Ano/Mês", each Text.Combine({Text.From([Ano], "pt-BR"), Text.From([Mês], "pt-BR")}), type text)
+    #"Coluna Mesclada Inserida1" = Table.AddColumn(#"Coluna Mesclada Inserida", "Ano/Mês", each Text.Combine({Text.From([Ano], "pt-BR"), Text.From([Mês], "pt-BR")}), type text),
+
+//Índice Adicionado
+
+    #"Índice Adicionado" = Table.AddIndexColumn(#"Coluna Mesclada Inserida1", "Índice", 1, 1, Int64.Type),
+    #"Colunas Reordenadas" = Table.ReorderColumns(#"Índice Adicionado",{"Índice", "Data", "Ano", "Nome do Ano", "Trimestre", "Nome do Trimestre", "Mês", "Nome do Mês", "Semana", "Nome da Semana", "Dia", "Nome do Ano/Mês", "Ano/Mês"}),
+    #"Linhas Classificadas1" = Table.Sort(#"Colunas Reordenadas",{{"Índice", Order.Ascending}})
 in
-    #"Coluna Mesclada Inserida1"
+    #"Linhas Classificadas1"
