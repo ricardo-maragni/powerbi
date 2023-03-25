@@ -5,7 +5,7 @@ StartDate = #date(2020,1,1),
 EndDate = #date(2025,12,31),
 DateTable = List.Dates(StartDate, Duration.Days(EndDate-StartDate), #duration(1, 0, 0, 0)),
 YearColumn = List.Transform(DateTable, each Date.Year(_)),
-YearNameColumn = List.Transform(DateTable, each "Y" & Text.End(Text.From(Date.Year(_)),2)),
+YearNameColumn = List.Transform(DateTable, each "" & Text.End(Text.From(Date.Year(_)),2)),
 QuarterColumn = List.Transform(DateTable, each Date.QuarterOfYear(_)),
 QuarterNameColumn = List.Transform(DateTable, each "T" & Text.From (Date.QuarterOfYear(_))),
 MonthColumn = List.Transform(DateTable, each Date.Month(_)),
@@ -46,12 +46,15 @@ DayColumn
 //Coluna de ordem do mês
 
     #"Coluna Personalizada Adicionada" = Table.AddColumn(#"Linhas Classificadas1", "Mês (Ordem)", each Text.PadStart(Text.From([Mês], "pt-BR"), 2, "0"), type text),
-    #"Colunas Reordenadas1" = Table.ReorderColumns(#"Coluna Personalizada Adicionada",{"Índice", "Data", "Ano", "Nome do Ano", "Trimestre", "Nome do Trimestre", "Mês", "Mês (Ordem)", "Nome do Mês", "Semana", "Nome da Semana", "Dia"}),
 
 //Coluna de Ano/Mês
 
-    #"Coluna Mesclada Inserida" = Table.AddColumn(#"Colunas Reordenadas1", "Ano/Mês", each Text.Combine({Text.From([Ano], "pt-BR"), [#"Mês (Ordem)"]}, ""), type text),
+    #"Coluna Mesclada Inserida" = Table.AddColumn(#"Coluna Personalizada Adicionada", "Ano/Mês", each Text.Combine({Text.From([Ano], "pt-BR"), [#"Mês (Ordem)"]}, ""), type text),
     #"Tipo Alterado2" = Table.TransformColumnTypes(#"Coluna Mesclada Inserida",{{"Ano/Mês", type number}}),
-    #"Coluna Mesclada Inserida1" = Table.AddColumn(#"Tipo Alterado2", "Nome Ano/Mês", each Text.Combine({[Nome do Ano], [Nome do Mês]}, "/"), type text)
+    #"Coluna Mesclada Inserida1" = Table.AddColumn(#"Tipo Alterado2", "Nome Ano/Mês", each Text.Combine({[Nome do Ano], [Nome do Mês]}, "/"), type text),
+
+//Apagar coluna de ordem do mês
+
+    #"Colunas Removidas" = Table.RemoveColumns(#"Coluna Mesclada Inserida1",{"Mês (Ordem)"})
 in
-    #"Coluna Mesclada Inserida1"
+    #"Colunas Removidas"
