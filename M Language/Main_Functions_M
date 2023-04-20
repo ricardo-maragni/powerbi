@@ -1,0 +1,6 @@
+
+FUNCTION NAME     ||      FORMULA
+
+Today Datetime    ||      DateTime.LocalNow()
+
+Today Date        ||      Date.From(DateTime.LocalNow())
