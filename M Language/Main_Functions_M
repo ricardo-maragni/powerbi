@@ -8,3 +8,4 @@ Today Date                ||      Date.From(DateTime.LocalNow())
 Yesterday Datetime        ||      DateTime.LocalNow()-#duration(1,0,0,0)
 
 Yesterday Date            ||      Date.From(DateTime.LocalNow()-#duration(1,0,0,0))
+
