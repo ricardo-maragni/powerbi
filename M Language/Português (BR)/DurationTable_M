@@ -8,10 +8,10 @@ Number.FromText(Text.BeforeDelimiter(Text.From([Decimal]), ",")) + 1 else Text.B
     #"Tipo Alterado1" = Table.TransformColumnTypes(#"Texto Inserido Antes do Delimitador",{{"Horas", type number}}),
     #"Texto Inserido Após o Delimitador" = Table.AddColumn(#"Tipo Alterado1", "Minutos", each if (([Decimal] - [Horas]) * 60) < 0 then 0 else ([Decimal] - [Horas]) * 60),
     Arredondado1 = Table.TransformColumns(#"Texto Inserido Após o Delimitador",{{"Minutos", each Number.Round(_, 0), type number}}),
-    #"Personalização Adicionada" = Table.AddColumn(Arredondado1, "Duração amigável", each
+    #"Personalização Adicionada" = Table.AddColumn(Arredondado1, "Formato amigável", each
 if [Horas] = 0 then Text.From([Minutos]) & "min" else
 if [Minutos] = 0 then Text.From([Horas]) & "h" else
 Text.From([Horas]) & "h" & Text.From([Minutos]) & "min"),
-    #"Tipo Alterado2" = Table.TransformColumnTypes(#"Personalização Adicionada",{{"Duração amigável", type text}})
+    #"Tipo Alterado2" = Table.TransformColumnTypes(#"Personalização Adicionada",{{"Formato amigável", type text}})
 in
     #"Tipo Alterado2"
