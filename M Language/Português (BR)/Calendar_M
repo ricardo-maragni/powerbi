@@ -87,9 +87,8 @@ DayColumn
 //Apagar coluna de ordem do mês
  
     #"Colunas Removidas" = Table.RemoveColumns(#"Coluna Mesclada Inserida1",{"Mês (Ordem)"}),
-
-    #"Coluna Mesclada Inserida2" = Table.AddColumn(#"Colunas Removidas", "Ano/Semana", each Text.Combine({Text.From([Ano], "pt-BR"), Text.From([Semana], "pt-BR")}, ""), type text),
-
+    #"Personalização Adicionada" = Table.AddColumn(#"Colunas Removidas", "Semana (Ordem)", each Text.PadStart(Text.From([Semana], "pt-BR"), 2, "0")),
+    #"Coluna Mesclada Inserida2" = Table.AddColumn(#"Personalização Adicionada", "Ano/Semana", each Text.Combine({Text.From([Ano], "pt-BR"), [#"Semana (Ordem)"]}, ""), type text),
     #"Tipo Alterado3" = Table.TransformColumnTypes(#"Coluna Mesclada Inserida2",{{"Ano/Semana", type number}}),
 
     #"Coluna Mesclada Inserida3" = Table.AddColumn(#"Tipo Alterado3", "Nome Ano/Semana", each Text.Combine({[Nome do Ano], [Nome da Semana]}, "/"), type text)
