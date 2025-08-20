@@ -1,5 +1,5 @@
 let
-    Fonte = DateTime.LocalNow()-#duration(0,5,0,0),
+    Fonte = DateTime.LocalNow()-#duration(0,3,0,0),
     #"Convertido para Tabela" = #table(1, {{Fonte}}),
     #"Tipo Alterado" = Table.TransformColumnTypes(#"Convertido para Tabela",{{"Column1", type datetime}}),
     #"Coluna Duplicada" = Table.DuplicateColumn(#"Tipo Alterado", "Column1", "Column1 - Copiar"),
