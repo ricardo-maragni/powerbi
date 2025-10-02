@@ -1,2 +1,2 @@
 <p align="left"><img src="Assets/PowerBI.jpg" alt="Power BI Logo" width="100%"/></p>
-<b style="font: 100px;">Welcome to my Power BI repository!</b>
+<p style="font: 100px;">Welcome to my Power BI repository!</p>
