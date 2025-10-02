@@ -1,0 +1,12 @@
+
+FUNCTION NAME             ||      FORMULA
+
+Today Datetime            ||      DateTime.LocalNow()
+
+Today Date                ||      Date.From(DateTime.LocalNow())
+
+Yesterday Datetime        ||      DateTime.LocalNow()-#duration(1,0,0,0)
+
+Yesterday Date            ||      Date.From(DateTime.LocalNow()-#duration(1,0,0,0))
+
+Day Of Week Name          ||      Date.DayOfWeek()
