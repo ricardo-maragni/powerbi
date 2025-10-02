@@ -1,7 +1,7 @@
 # Power BI 🚀
 
 <p align="center">
-  <img src="Assets/PowerBI.png" alt="Power BI Logo" width="200"/>
+  <img src="Assets/PowerBI.jpg" alt="Power BI Logo" width="200"/>
 </p>
 
 ## 👋 Bem-vindo ao repositório!
