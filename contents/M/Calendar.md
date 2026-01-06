@@ -4,7 +4,7 @@ Modelo de calendário criado com a linguagem M do Power Query.
 ```M
 let
 
-CalendarioM = let
+CalendarM = let
  
 StartDate = #date(2020,1,1),
 
@@ -60,7 +60,7 @@ DayColumn
  
 //Formatação
  
-    #"Tipo Alterado" = Table.TransformColumnTypes(CalendarioM,{{"Data", type date}}),
+    #"Tipo Alterado" = Table.TransformColumnTypes(CalendarM,{{"Data", type date}}),
 
     #"Colocar Cada Palavra Em Maiúscula" = Table.TransformColumns(#"Tipo Alterado",{{"Nome do Mês", Text.Proper, type text}}),
 
