@@ -1,4 +1,8 @@
-# TimeTable (Horas/Minutos)
+# TimeTable
+Role para baixo para escolher a tabela de Horas/Minutos ou Horas/Minutos/Segundos.
+
+
+## TimeTable (Horas/Minutos)
 Modelo de tabela que converte valores de tempo para horas e minutos.
 
 ```M
